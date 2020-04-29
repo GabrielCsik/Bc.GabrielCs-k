@@ -20,9 +20,9 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String calculateHash(){
+    public String calculateHash() {
         sequence++;
-        if(fromAdress == null){
+        if (fromAdress == null) {
             return StringUtil.applySha256(StringUtil.getStringFromKey(toAdress)
                     + Integer.toString(amount) + sequence
             );
@@ -36,6 +36,7 @@ public class Transaction {
     public PublicKey getFromAdress() {
         return fromAdress;
     }
+
     public void setFromAdress(PublicKey fromAdress) {
         this.fromAdress = fromAdress;
     }
@@ -64,16 +65,14 @@ public class Transaction {
     //Signs all the data we dont wish to be tampered with.
     public void generateSignature(PrivateKey privateKey) {
         String data;
-        if (fromAdress == null){
-            data = StringUtil.getStringFromKey(toAdress) + Float.toString(amount);
-        }else{
-            data = StringUtil.getStringFromKey(fromAdress) + StringUtil.getStringFromKey(toAdress) + Float.toString(amount);
-        }
-        signature = StringUtil.applyECDSASig(privateKey,data);
+        data = StringUtil.getStringFromKey(fromAdress) + StringUtil.getStringFromKey(toAdress) + Float.toString(amount);
+        signature = StringUtil.applyECDSASig(privateKey, data);
     }
+
     //Verifies the data we signed hasnt been tampered with
     public boolean verifiySignature() {
-        String data = StringUtil.getStringFromKey(fromAdress) + StringUtil.getStringFromKey(toAdress) + Float.toString(amount)	;
+        if(this.signature == null && this.fromAdress == null) return true;
+        String data = StringUtil.getStringFromKey(fromAdress) + StringUtil.getStringFromKey(toAdress) + Float.toString(amount);
         return StringUtil.verifyECDSASig(fromAdress, data, signature);
     }
 

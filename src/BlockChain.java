@@ -120,6 +120,7 @@ public class BlockChain {
                 return false;
             }
             for (Transaction transaction : currentBlock.transactionListInBlock) {
+                if(transaction == null) continue;
                 if (!transaction.verifiySignature()) {
                     System.out.println("Sgnature is not right");
                     return false;
