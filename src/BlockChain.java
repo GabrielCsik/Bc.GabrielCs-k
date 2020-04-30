@@ -138,8 +138,8 @@ public class BlockChain {
         BlockChain.difficulty = difficulty;
     }
 
-    public int getNumofBlocks() {
-        int num = 0;
+    public float getNumofBlocks() {
+        float num = 0;
         if (blockchain.isEmpty() || blockchain == null) return 0;
         for (Block block : blockchain) {
             num++;

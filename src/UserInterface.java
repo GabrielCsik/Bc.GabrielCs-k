@@ -80,9 +80,9 @@ public class UserInterface{
         System.out.println("****************************************************");
         System.out.println("Average mining power: " + df.format(allMiningPower/minerCount));
         System.out.println("Is the Blockchain valid: " + BlockChain.isChainValid(blockChain));
-        System.out.println( "Number of Blocks in Blockchain: "+blockChain.getNumofBlocks());
+        System.out.println( "Number of Blocks in Blockchain: "+(int)blockChain.getNumofBlocks());
         System.out.println( "Number of Transactions in Blockchain: "+blockChain.getNumofTransactions());
-        System.out.println("Number of Transactions/Block: " + df.format(blockChain.getNumofBlocks()/blockChain.getNumofTransactions()));
+        System.out.println("Number of Transactions/Block: " + df.format(blockChain.getNumofTransactions()/blockChain.getNumofBlocks()));
         System.out.println("Number of Blocks/second: " + df.format(blockChain.getNumofBlocks()/runTime));
         System.out.println("Number of Transaction/second: " + df.format(blockChain.getNumofTransactions()/runTime));
         System.out.println("****************************************************");
