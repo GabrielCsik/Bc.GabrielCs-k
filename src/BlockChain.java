@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockChain {
-    //    public int counter = 0;
-//    public int numOfTrans = 0;
-    volatile boolean stopAddingTrans = false;
     public static List<Block> blockchain;
     public ArrayList<Transaction> pendingTransactions;
     public static int difficulty;
@@ -28,11 +25,6 @@ public class BlockChain {
         return blockchain.get(blockchain.size() - 1);
     }
 
-    //    public void addBlock(Block newBlock){
-//        newBlock.previousHash = getLatestBlock().hash;
-//        newBlock.mineBlock(difficulty);
-//        blockchain.add(newBlock);
-//    }
     public void minePendingTransactions(Miner miner, int minePower) {
         Block newBLock = new Block();
         newBLock.mineBlock(difficulty, minePower);

@@ -24,15 +24,15 @@ public class User extends Thread {
     }
 
     public void createTransaction() {
-//        int i = 0;
         while (true) {
             try {
                 this.sleep(random.nextInt(10000)+1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            blockChain.createTransaction(new Transaction(this.publicKey, userList.get(random.nextInt(userList.size()) + 0).getPublicKey(), random.nextInt(10000), privateKey));
-//            i++;
+            blockChain.createTransaction(new Transaction(this.publicKey,
+                    userList.get(random.nextInt(userList.size()-1)).getPublicKey(),
+                    random.nextInt(10000), privateKey));
         }
     }
 
@@ -48,6 +48,7 @@ public class User extends Thread {
     public List<User> getUserList() {
         return userList;
     }
+
     public void generateKeyPair() {
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");

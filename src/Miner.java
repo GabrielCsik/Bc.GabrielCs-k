@@ -20,14 +20,10 @@ public class Miner extends Thread {
     }
 
     public void minerStart() {
-//        int i = 0;
         while (true) {
             blockChain.minePendingTransactions(this, miningPower);
-//            System.out.print(this.name);
-//            i++;
         }
     }
-
 
     public String getMinerName() {
         return name;

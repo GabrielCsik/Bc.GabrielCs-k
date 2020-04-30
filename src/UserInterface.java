@@ -45,19 +45,14 @@ public class UserInterface{
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
         System.out.println("Enter number of users: ");
         int numOfusers = reader.nextInt();
-//        System.out.println(numOfusers);
         ArrayList<User> users = (ArrayList<User>) createUsers(numOfusers);
-
         System.out.println("Enter number of miners: ");
         int numOfminers = reader.nextInt();
+        ArrayList<Miner> miners = (ArrayList<Miner>) createMiners(numOfminers);
         System.out.println("Enter difficulty: ");
         blockChain.setDifficulty(reader.nextInt());
         System.out.println("Enter time of running in seconds: ");
         float runTime = reader.nextInt();
-
-//        System.out.println(numOfminers);
-        ArrayList<Miner> miners = (ArrayList<Miner>) createMiners(numOfminers);
-
         users.stream().forEach(p -> p.setUserList(users));
         for (User user : users) { user.start(); }
         System.out.println("Started users");
@@ -86,10 +81,10 @@ public class UserInterface{
         System.out.println("Number of Blocks/second: " + df.format(blockChain.getNumofBlocks()/runTime));
         System.out.println("Number of Transaction/second: " + df.format(blockChain.getNumofTransactions()/runTime));
         System.out.println("****************************************************");
+        System.exit(0);
 //        users.stream().forEach(p-> System.out.println(p.getUserName() + " " + blockChain.getBalanceOfAddress(p.getPublicKey())));
 //        System.out.println();
 //        miners.stream().forEach(p-> System.out.println(p.getMinerName() + " " + blockChain.getBalanceOfAddress(p.getPublicKey())));
-        System.exit(0);
         //Setup Bouncey castle as a Security Provider
 
         //Create the new wallets
