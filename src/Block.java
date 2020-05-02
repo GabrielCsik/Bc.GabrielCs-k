@@ -36,7 +36,7 @@ public class Block {
                 try {
                     Thread.sleep(300);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+
                 }
                 i = 0;
             }

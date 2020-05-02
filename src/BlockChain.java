@@ -1,12 +1,17 @@
+import com.sun.corba.se.impl.oa.poa.AOMEntry;
+
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BlockChain {
     public static List<Block> blockchain;
     public ArrayList<Transaction> pendingTransactions;
     public static int difficulty;
-    public int miningReward = 100;
+    public int miningReward = 10;
+    public int numOfBlocks = 0;
+    private AtomicInteger numOfTrans = new AtomicInteger(0);
     private Object obj = new Object();
 
     public BlockChain() {
@@ -18,6 +23,7 @@ public class BlockChain {
     public Block createGenenisBlock() {
         Block genesisBlock = new Block();
         genesisBlock.setPrevHash("0");
+        numOfBlocks++;
         return genesisBlock;
     }
 
@@ -26,22 +32,25 @@ public class BlockChain {
     }
 
     public void minePendingTransactions(Miner miner, int minePower) {
-        Block newBLock = new Block();
-        newBLock.mineBlock(difficulty, minePower);
-        synchronized (obj) {
-            newBLock.setPrevHash(getLatestBlock().hash);
+            Block newBLock = new Block();
+            newBLock.mineBlock(difficulty, minePower);
+            synchronized (obj) {
+                newBLock.setPrevHash(getLatestBlock().hash);
 //        System.out.println(counter);
 //        System.out.print(miningRewardAdress);
-            newBLock.setTransactionListInBlock((ArrayList<Transaction>) pendingTransactions.clone());
-            blockchain.add(newBLock);
-            pendingTransactions.clear();
-            pendingTransactions.add(new Transaction(miner.getPublicKey(), miningReward));
-        }
+                newBLock.setTransactionListInBlock((ArrayList<Transaction>) pendingTransactions.clone());
+                blockchain.add(newBLock);
+                pendingTransactions.clear();
+                pendingTransactions.add(new Transaction(miner.getPublicKey(), miningReward));
+                numOfBlocks++;
+                numOfTrans.incrementAndGet();
+            }
     }
 
     public void createTransaction(Transaction transaction) {
 //        synchronized (obj) {
         pendingTransactions.add(transaction);
+        numOfTrans.incrementAndGet();
 //        System.out.print(" T");
 //        }
     }
@@ -76,14 +85,7 @@ public class BlockChain {
     }
 
     public int getNumofTransactions() {
-        int num = 0;
-        if (blockchain.isEmpty() || blockchain == null) return 0;
-        for (Block block : blockchain) {
-            if (block.transactionListInBlock != null && !block.transactionListInBlock.isEmpty() && block.transactionListInBlock != null) {
-                num += block.transactionListInBlock.size();
-            }
-        }
-        return num;
+        return numOfTrans.get();
     }
 
     public static Boolean isChainValid(BlockChain blockChain) {
@@ -131,11 +133,6 @@ public class BlockChain {
     }
 
     public float getNumofBlocks() {
-        float num = 0;
-        if (blockchain.isEmpty() || blockchain == null) return 0;
-        for (Block block : blockchain) {
-            num++;
-        }
-        return num;
+        return (float) numOfBlocks;
     }
 }

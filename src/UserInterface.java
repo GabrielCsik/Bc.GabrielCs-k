@@ -74,7 +74,7 @@ public class UserInterface{
         DecimalFormat df = new DecimalFormat("#.###");
         System.out.println("****************************************************");
         System.out.println("Average mining power: " + df.format(allMiningPower/minerCount));
-        System.out.println("Is the Blockchain valid: " + BlockChain.isChainValid(blockChain));
+//        System.out.println("Is the Blockchain valid: " + BlockChain.isChainValid(blockChain));
         System.out.println( "Number of Blocks in Blockchain: "+(int)blockChain.getNumofBlocks());
         System.out.println( "Number of Transactions in Blockchain: "+blockChain.getNumofTransactions());
         System.out.println("Number of Transactions/Block: " + df.format(blockChain.getNumofTransactions()/blockChain.getNumofBlocks()));
