@@ -32,7 +32,7 @@ public class StringUtil {
             byte[] realSig = dsa.sign();
             output = realSig;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
         }
         return output;
     }
